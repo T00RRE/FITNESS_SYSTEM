@@ -1,0 +1,365 @@
+/* ==========================================================================
+   1. Główne style
+   ========================================================================== */
+   body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1;
+}
+
+/* ==========================================================================
+   2. Style banera
+   ========================================================================== */
+.banner {
+    height: 600px;
+    background: linear-gradient(45deg, #1a237e, #0d47a1), 
+            url('/fitness-system/public/images/baner_index1.jpg');
+    position: relative;
+    margin-bottom: 2rem;
+    background-size: cover;
+    background-position: center;
+}
+
+.banner-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    width: 80%;
+    max-width: 800px;
+}
+
+.banner h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.banner .lead {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.banner .btn-primary {
+    font-size: 1.2rem;
+    padding: 0.8rem 2rem;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+/* ==========================================================================
+   3. Style formularzy i elementów podstawowych
+   ========================================================================== */
+.form-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.alert {
+    margin-bottom: 20px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+/* ==========================================================================
+   4. Style kart
+   ========================================================================== */
+.card {
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-body ul li {
+    margin-bottom: 0.5rem;
+}
+
+.card-body ul li i {
+    margin-right: 0.5rem;
+    color: #007bff;
+}
+
+/* ==========================================================================
+   5. Style profili trenerów
+   ========================================================================== */
+.trainer-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    padding: 20px;
+}
+
+.trainer-card:hover {
+    transform: translateY(-5px);
+}
+
+.trainer-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.trainer-info {
+    padding: 20px;
+}
+
+.trainer-info h3 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.trainer-specialties {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.trainer-specialties li {
+    padding: 5px 0;
+    padding-left: 25px;
+    position: relative;
+}
+
+.trainer-specialties li:before {
+    content: "•";
+    color: #007bff;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+.trainer-certs {
+    margin-top: 20px;
+}
+
+.trainer-certs .badge {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+}
+
+/* ==========================================================================
+   6. Style sekcji statystyk i funkcji
+   ========================================================================== */
+.stat-box {
+    padding: 30px;
+    border-radius: 10px;
+    background: white;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.stat-box:hover {
+    transform: translateY(-5px);
+}
+
+.counter {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.feature-card {
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* ==========================================================================
+   7. Style sekcji "Dlaczego My"
+   ========================================================================== */
+.why-us-section {
+    background-color: #f8f9fa;
+    border-radius: 15px;
+    margin: 40px 0;
+    padding: 40px 0;
+}
+
+.why-us-box {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    height: 100%;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+.why-us-box:hover {
+    transform: translateY(-5px);
+}
+
+.why-us-box h4 {
+    margin: 15px 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.why-us-box p {
+    color: #6c757d;
+    margin: 0;
+}
+
+/* ==========================================================================
+   8. Style kalendarza
+   ========================================================================== */
+.calendar-table {
+    table-layout: fixed;
+}
+
+.calendar-day {
+    height: 150px;
+    vertical-align: top;
+    padding: 5px !important;
+}
+
+.day-number {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.other-month {
+    background-color: #f8f9fa;
+    color: #adb5bd;
+}
+
+.today {
+    background-color: #e8f4ff;
+}
+
+.day-events {
+    font-size: 0.8rem;
+    overflow-y: auto;
+    max-height: 120px;
+}
+
+.event {
+    cursor: pointer;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: white;
+    transition: all 0.2s ease;
+}
+
+.event:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
+}
+
+/* Kolory zajęć */
+.event-gt { background-color: #FF4B4B; }
+.event-les-mills { background-color: #4CAF50; }
+.event-pilates { background-color: #9C27B0; }
+.event-martial-arts { background-color: #FF9800; }
+.event-spinning { background-color: #2196F3; }
+.event-default { background-color: #607D8B; }
+
+/* Legenda kalendarza */
+.calendar-legend {
+    margin-top: 20px;
+    padding: 15px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.legend-item {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+
+.legend-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    margin-right: 8px;
+}
+
+/* ==========================================================================
+   9. Animacje
+   ========================================================================== */
+.fa-3x {
+    transition: transform 0.3s ease;
+}
+
+.card:hover .fa-3x,
+.stat-box:hover .fa-3x {
+    transform: scale(1.1);
+}
+
+/* ==========================================================================
+   10. Media Queries
+   ========================================================================== */
+@media (max-width: 768px) {
+    .banner {
+        height: 400px;
+    }
+
+    .banner h1 {
+        font-size: 2.5rem;
+    }
+
+    .banner .lead {
+        font-size: 1.2rem;
+    }
+
+    .trainer-image {
+        height: 300px;
+        margin-bottom: 20px;
+    }
+    
+    .trainer-info {
+        padding: 0;
+    }
+
+    .calendar-day {
+        height: 100px;
+    }
+
+    .day-events {
+        max-height: 70px;
+    }
+
+    .stat-box, 
+    .why-us-box {
+        margin-bottom: 20px;
+    }
+    
+    .counter {
+        font-size: 2rem;
+    }
+}
