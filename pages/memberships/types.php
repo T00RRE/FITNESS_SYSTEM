@@ -1,5 +1,17 @@
 <?php
 require_once '../../config/config.php';
+require_once '../../classes/Database.php';
+
+// Połączenie z bazą danych
+$database = new Database();
+$db = $database->connect();
+
+// Pobierz wszystkie typy karnetów
+$query = "SELECT * FROM membership_types WHERE is_active = 1";
+$stmt = $db->prepare($query);
+$stmt->execute();
+$membershipTypes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 require_once '../../templates/header.php';
 ?>
 
@@ -7,72 +19,37 @@ require_once '../../templates/header.php';
     <h2 class="text-center mb-4">Nasze karnety</h2>
     
     <div class="row justify-content-center">
-        <!-- Karnet BASIC -->
-        <div class="col-md-4 mb-4">
-            <div class="card membership-card h-100">
-                <div class="card-header text-center py-3">
-                    <h4 class="my-0">BASIC</h4>
-                </div>
-                <div class="card-body d-flex flex-column">
-                    <h1 class="card-title text-center">99 zł<small class="text-muted fw-light">/msc</small></h1>
-                    <ul class="list-unstyled mt-3 mb-4">
-                        <li><i class="fas fa-check text-success me-2"></i>Dostęp do siłowni</li>
-                        <li><i class="fas fa-check text-success me-2"></i>2 wejścia na zajęcia grupowe</li>
-                        <li><i class="fas fa-check text-success me-2"></i>Szafka</li>
-                        <li><i class="fas fa-times text-danger me-2"></i>Trening personalny</li>
-                        <li><i class="fas fa-times text-danger me-2"></i>Sauna</li>
-                    </ul>
-                    <div class="mt-auto">
-                        <a href="purchase.php?type=basic" class="btn btn-lg btn-outline-primary w-100">Wybierz</a>
+        <?php foreach ($membershipTypes as $membershipType): ?>
+            <div class="col-md-4 mb-4">
+                <div class="card membership-card h-100 <?php echo $membershipType['name'] === 'STANDARD' ? 'border-primary' : ''; ?>">
+                    <div class="card-header text-center py-3 <?php echo getHeaderClass($membershipType['name']); ?>">
+                        <h4 class="my-0"><?php echo htmlspecialchars($membershipType['name']); ?></h4>
+                        <?php if ($membershipType['name'] === 'STANDARD'): ?>
+                            <span class="badge bg-warning">Najpopularniejszy</span>
+                        <?php endif; ?>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h1 class="card-title text-center"><?php echo number_format($membershipType['price'], 2); ?> zł<small class="text-muted fw-light">/msc</small></h1>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <?php
+                            $features = getFeatures($membershipType['name']);
+                            foreach ($features as $feature => $included):
+                            ?>
+                                <li>
+                                    <i class="fas fa-<?php echo $included ? 'check text-success' : 'times text-danger'; ?> me-2"></i>
+                                    <?php echo $feature; ?>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                        <div class="mt-auto">
+                            <a href="purchase.php?type=<?php echo $membershipType['id']; ?>" class="btn btn-lg <?php echo $membershipType['name'] === 'STANDARD' ? 'btn-primary' : 'btn-outline-primary'; ?> w-100">
+                                Wybierz
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Karnet STANDARD -->
-        <div class="col-md-4 mb-4">
-            <div class="card membership-card h-100 border-primary">
-                <div class="card-header text-center py-3 bg-primary text-white">
-                    <h4 class="my-0">STANDARD</h4>
-                    <span class="badge bg-warning">Najpopularniejszy</span>
-                </div>
-                <div class="card-body d-flex flex-column">
-                    <h1 class="card-title text-center">149 zł<small class="text-muted fw-light">/msc</small></h1>
-                    <ul class="list-unstyled mt-3 mb-4">
-                        <li><i class="fas fa-check text-success me-2"></i>Dostęp do siłowni</li>
-                        <li><i class="fas fa-check text-success me-2"></i>Nielimitowane zajęcia grupowe</li>
-                        <li><i class="fas fa-check text-success me-2"></i>Szafka</li>
-                        <li><i class="fas fa-check text-success me-2"></i>1 trening personalny</li>
-                        <li><i class="fas fa-times text-danger me-2"></i>Sauna</li>
-                    </ul>
-                    <div class="mt-auto">
-                        <a href="purchase.php?type=standard" class="btn btn-lg btn-primary w-100">Wybierz</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Karnet PREMIUM -->
-        <div class="col-md-4 mb-4">
-            <div class="card membership-card h-100">
-                <div class="card-header text-center py-3 bg-dark text-white">
-                    <h4 class="my-0">PREMIUM</h4>
-                </div>
-                <div class="card-body d-flex flex-column">
-                    <h1 class="card-title text-center">199 zł<small class="text-muted fw-light">/msc</small></h1>
-                    <ul class="list-unstyled mt-3 mb-4">
-                        <li><i class="fas fa-check text-success me-2"></i>Dostęp do siłowni</li>
-                        <li><i class="fas fa-check text-success me-2"></i>Nielimitowane zajęcia grupowe</li>
-                        <li><i class="fas fa-check text-success me-2"></i>Szafka</li>
-                        <li><i class="fas fa-check text-success me-2"></i>2 treningi personalne</li>
-                        <li><i class="fas fa-check text-success me-2"></i>Sauna</li>
-                    </ul>
-                    <div class="mt-auto">
-                        <a href="purchase.php?type=premium" class="btn btn-lg btn-dark w-100">Wybierz</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php endforeach; ?>
     </div>
 
     <!-- Dodatkowe informacje -->
@@ -101,4 +78,46 @@ require_once '../../templates/header.php';
     </div>
 </div>
 
-<?php require_once '../../templates/footer.php'; ?>
+<?php
+// Funkcje pomocnicze
+function getHeaderClass($type) {
+    switch ($type) {
+        case 'STANDARD':
+            return 'bg-primary text-white';
+        case 'PREMIUM':
+            return 'bg-dark text-white';
+        default:
+            return '';
+    }
+}
+
+function getFeatures($type) {
+    $features = [
+        'BASIC' => [
+            'Dostęp do siłowni' => true,
+            '2 wejścia na zajęcia grupowe' => true,
+            'Szafka' => true,
+            'Trening personalny' => false,
+            'Sauna' => false
+        ],
+        'STANDARD' => [
+            'Dostęp do siłowni' => true,
+            'Nielimitowane zajęcia grupowe' => true,
+            'Szafka' => true,
+            '1 trening personalny' => true,
+            'Sauna' => false
+        ],
+        'PREMIUM' => [
+            'Dostęp do siłowni' => true,
+            'Nielimitowane zajęcia grupowe' => true,
+            'Szafka' => true,
+            '2 treningi personalne' => true,
+            'Sauna' => true
+        ]
+    ];
+    
+    return $features[$type] ?? $features['BASIC'];
+}
+
+require_once '../../templates/footer.php';
+?>

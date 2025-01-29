@@ -30,6 +30,11 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav">
+                <?php if (isset($_SESSION['user_id']) && $_SESSION['user_role'] === 'admin'): ?>
+    <li class="nav-item">
+        <a class="nav-link" href="/fitness-system/pages/admin/">Panel Admina</a>
+    </li>
+<?php endif; ?>
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <li class="nav-item">
                         <a class="nav-link" href="/fitness-system/pages/account.php">Moje konto</a>

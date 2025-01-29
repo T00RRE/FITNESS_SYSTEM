@@ -362,4 +362,140 @@
     .counter {
         font-size: 2rem;
     }
+    /* Style dla sekcji karnetu */
+.membership-info {
+    padding: 15px;
+}
+
+.membership-status {
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.membership-status .progress {
+    height: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+.membership-status .progress-bar {
+    background-color: #28a745;
+}
+
+.badge.bg-success {
+    padding: 8px 12px;
+}
+* Style dla panelu administratora */
+.admin-dashboard .card {
+    transition: transform 0.2s;
+}
+
+.admin-dashboard .card:hover {
+    transform: translateY(-5px);
+}
+
+.admin-sidebar {
+    position: sticky;
+    top: 20px;
+}
+
+.admin-stats-card {
+    border: none;
+    border-radius: 10px;
+}
+
+.admin-stats-card h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+/* Style dla tabeli użytkowników */
+.table-responsive {
+    margin-bottom: 1rem;
+    border-radius: .25rem;
+    box-shadow: 0 0 10px rgba(0,0,0,.05);
+}
+
+.table th {
+    background-color: #f8f9fa;
+    border-top: none;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.btn-group .btn {
+    padding: .25rem .5rem;
+}
+
+.badge {
+    padding: .5em .8em;
+    font-weight: 500;
+}
+/* Kolory dla kart statystyk */
+.bg-primary { background-color: #007bff !important; }
+.bg-success { background-color: #28a745 !important; }
+.bg-info { background-color: #17a2b8 !important; }
+.bg-warning { background-color: #ffc107 !important; }
+.event-container {
+    position: relative;
+}
+
+event-container {
+    position: relative;
+    cursor: pointer;
+}
+
+.event-actions {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.event-container:hover .event-actions {
+    opacity: 1;
+}
+
+.event-actions .btn {
+    transform: scale(0.9);
+    transition: transform 0.2s ease;
+}
+
+.event-container:hover .event-actions .btn {
+    transform: scale(1);
+}
+.event-wrapper {
+    position: relative;
+    margin-bottom: 5px;
+}
+
+.event {
+    position: relative;
+}
+
+.enroll-btn {
+    display: none;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8rem;
+    padding: 2px 8px;
+}
+
+.event:hover .enroll-btn {
+    display: block;
+}
+
+.event:hover {
+    opacity: 0.9;
+}
 }

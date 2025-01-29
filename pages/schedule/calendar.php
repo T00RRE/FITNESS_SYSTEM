@@ -45,7 +45,9 @@ foreach ($classes as $class) {
 }
 
 require_once '../../templates/header.php';
+
 ?>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <div class="container-fluid mt-4">
     <div class="row">
@@ -74,7 +76,6 @@ require_once '../../templates/header.php';
                     </a>
                 </div>
             </div>
-
             <!-- Kalendarz -->
             <div class="calendar-container">
                 <table class="table table-bordered calendar-table">
@@ -138,15 +139,27 @@ require_once '../../templates/header.php';
                                                 $eventClass = 'event-default';
                                         }
                                         
-                                        echo "<div class='event $eventClass p-1 mb-1 rounded' 
-                                                  data-bs-toggle='tooltip' 
-                                                  data-bs-placement='top' 
-                                                  title='Trener: {$class['trainer_name']}&#10;Sala: $room'
-                                                  data-class-type='" . htmlspecialchars($className) . "'
-                                                  data-trainer='" . htmlspecialchars($class['trainer_name']) . "'
-                                                  data-room='" . htmlspecialchars($room) . "'
-                                                  data-time='" . htmlspecialchars($startTime) . "'>";
+                                        // Tworzenie tablicy z danymi zajęć dla JavaScript
+                                        $classData = htmlspecialchars(json_encode([
+                                            'id' => $class['id'],
+                                            'name' => $className,
+                                            'time' => $startTime,
+                                            'trainer' => $class['trainer_name'],
+                                            'room' => $room
+                                        ]));
+                                        
+                                        echo "<div class='event-wrapper'>";
+                                        echo "<div class='event $eventClass p-1 mb-1 rounded'>";
                                         echo "<small>$startTime</small> $className";
+                                        if (isset($_SESSION['user_id'])) {
+                                            echo "<button class='btn btn-sm btn-success float-end enroll-btn' 
+                                                      data-bs-toggle='modal' 
+                                                      data-bs-target='#enrollModal' 
+                                                      data-class-info='{$classData}'>
+                                                    Zapisz się
+                                                </button>";
+                                        }
+                                        echo "</div>";
                                         echo "</div>";
                                     }
                                 }
@@ -188,6 +201,31 @@ require_once '../../templates/header.php';
                         <span>Spinning</span>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal zapisu na zajęcia -->
+<div class="modal fade" id="enrollModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Zapisz się na zajęcia</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Czy chcesz zapisać się na zajęcia:</p>
+                <ul class="list-unstyled">
+                    <li><strong>Zajęcia:</strong>  <span id="classNameConfirm"></span></li>
+                    <li><strong>Godzina:</strong> <span id="classTimeConfirm"></span></li>
+                    <li><strong>Trener:</strong> <span id="trainerConfirm"></span></li>
+                    <li><strong>Sala:</strong> <span id="roomConfirm"></span></li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
+                <button type="button" class="btn btn-success" id="confirmEnroll">Potwierdź zapis</button>
             </div>
         </div>
     </div>

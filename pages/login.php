@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             
             // Przekierowanie do odpowiedniej strony w zależności od roli
             if ($user->role == 'admin') {
-                header("Location: dashboard/admin.php");
+                header("Location: memberships/types.php");
             } elseif ($user->role == 'trainer') {
                 header("Location: dashboard/trainer.php");
             } else {
