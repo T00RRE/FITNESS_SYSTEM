@@ -3,7 +3,7 @@ class User {
     private $conn;
     private $table = 'users';
 
-    // Właściwości obiektu
+
     public $id;
     public $email;
     public $password;
@@ -18,7 +18,7 @@ class User {
         $this->conn = $db;
     }
 
-    // Rejestracja użytkownika
+
     public function register() {
         $query = "INSERT INTO " . $this->table . "
                 (email, password, first_name, last_name, phone, role, created_at, updated_at)
@@ -27,17 +27,17 @@ class User {
 
         $stmt = $this->conn->prepare($query);
 
-        // Hashowanie hasła
+
         $hashed_password = password_hash($this->password, PASSWORD_DEFAULT);
 
-        // Czyszczenie danych
+
         $this->email = htmlspecialchars(strip_tags($this->email));
         $this->first_name = htmlspecialchars(strip_tags($this->first_name));
         $this->last_name = htmlspecialchars(strip_tags($this->last_name));
         $this->phone = htmlspecialchars(strip_tags($this->phone));
         $this->role = htmlspecialchars(strip_tags($this->role));
 
-        // Bindowanie parametrów
+
         $stmt->bindParam(':email', $this->email);
         $stmt->bindParam(':password', $hashed_password);
         $stmt->bindParam(':first_name', $this->first_name);
@@ -57,7 +57,7 @@ class User {
         return false;
     }
 
-    // Logowanie użytkownika
+
     public function login($email, $password) {
         $query = "SELECT id, email, password, role, first_name, last_name 
                 FROM " . $this->table . " 
@@ -69,7 +69,6 @@ class User {
 
         if($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             if(password_verify($password, $row['password'])) {
-                // Aktualizacja czasu ostatniego logowania
                 $update_query = "UPDATE " . $this->table . " 
                                SET updated_at = GETDATE() 
                                WHERE id = :id";
@@ -77,7 +76,6 @@ class User {
                 $update_stmt->bindParam(':id', $row['id']);
                 $update_stmt->execute();
 
-                // Przypisanie wartości do właściwości obiektu
                 $this->id = $row['id'];
                 $this->email = $row['email'];
                 $this->first_name = $row['first_name'];
@@ -91,7 +89,6 @@ class User {
         return false;
     }
 
-    // Sprawdzenie czy email już istnieje
     public function emailExists($email) {
         $query = "SELECT id FROM " . $this->table . " WHERE email = :email";
         $stmt = $this->conn->prepare($query);
@@ -101,7 +98,6 @@ class User {
         return $stmt->rowCount() > 0;
     }
 
-    // Aktualizacja profilu użytkownika
     public function update() {
         $query = "UPDATE " . $this->table . "
                 SET
@@ -113,7 +109,6 @@ class User {
 
         $stmt = $this->conn->prepare($query);
 
-        // Bindowanie parametrów
         $stmt->bindParam(':first_name', $this->first_name);
         $stmt->bindParam(':last_name', $this->last_name);
         $stmt->bindParam(':phone', $this->phone);
@@ -127,7 +122,6 @@ class User {
         }
     }
 
-    // Pobranie danych użytkownika po ID
     public function getById($id) {
         $query = "SELECT * FROM " . $this->table . " WHERE id = :id";
         $stmt = $this->conn->prepare($query);
