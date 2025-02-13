@@ -4,12 +4,32 @@ System do zarządzania salą fitness, umożliwiający zarządzanie zajęciami, k
 
 ## Funkcjonalności
 
-- System rejestracji i logowania użytkowników
-- Kalendarz zajęć z możliwością zapisów
-- Profile trenerów
-- System karnetów
-- Panel użytkownika
-- Responsywny design
+System rejestracji i logowania
+
+Rejestracja nowych użytkowników
+Logowanie dla klientów i pracowników
+Panel administratora
+
+
+Zarządzanie zajęciami
+
+Kalendarz zajęć z podziałem na dni tygodnia
+System zapisów na zajęcia
+Różne typy zajęć (GT Training, Les Mills, Pilates, itp.)
+
+
+System karnetów
+
+Różne typy karnetów (Basic, Standard, Premium)
+Historia karnetów
+Status aktywności karnetu
+
+
+Panel użytkownika
+
+Podgląd własnych rezerwacji
+Edycja danych osobowych
+Zarządzanie karnetem
 
 ## Technologie
 
@@ -19,7 +39,26 @@ System do zarządzania salą fitness, umożliwiający zarządzanie zajęciami, k
 - CSS3 (Bootstrap)
 - JavaScript
 - Font Awesome
-
+## Struktura projektu
+fitness-system/
+├── classes/               # Klasy PHP
+│   ├── Database.php
+│   └── User.php
+├── config/               # Pliki konfiguracyjne
+│   └── config.php
+├── includes/            # Pliki dołączane
+├── pages/              # Strony aplikacji
+│   ├── account/        # Panel użytkownika
+│   ├── admin/          # Panel administratora
+│   ├── classes/        # Zarządzanie zajęciami
+│   └── memberships/    # Zarządzanie karnetami
+├── public/             # Zasoby publiczne
+│   ├── css/
+│   ├── js/
+│   └── images/
+└── templates/          # Szablony
+    ├── header.php
+    └── footer.php
 ## Instalacja
 
 1. Sklonuj repozytorium:
